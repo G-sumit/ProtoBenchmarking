@@ -1,0 +1,68 @@
+syntax = "proto3";
+package main;
+import "google/protobuf/any.proto";
+option go_package="src/proto";
+message Person {
+   string name = 1;
+   int32 id = 2;  // Unique ID number for this person.
+   string email = 3;
+
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message PhoneNumber {
+     string number = 1;
+     PhoneType type = 2;
+  }
+
+  repeated PhoneNumber phones = 4;
+}
+
+message PersonCopy {
+  string name = 1;
+  int32 id = 2;  // Unique ID number for this person.
+  string email = 3;
+  string nameFirst = 4;
+  int32 idFirst = 5;  // Unique ID number for this person.
+  string emailFirst = 6;
+  string nameSecond = 7;
+  int32 idSecond = 8;  // Unique ID number for this person.
+  string emailSecond = 9;
+  string nameThird = 10;
+  int32 idThird = 11;  // Unique ID number for this person.
+  string emailThird = 12;
+
+
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message PhoneNumber {
+    string number = 1;
+    PhoneType type = 2;
+  }
+  repeated PhoneNumber phones = 13;
+}
+
+// Our address book file is just one of these.
+message AddressBook {
+  repeated WidgetData data=1;
+  string Next_page_url = 2;
+}
+
+message AddressBookAny {
+  repeated google.protobuf.Any widgets_ = 1;
+  string Next_page_url = 2;
+}
+
+message WidgetData{
+  oneof Widget_data {
+    PersonCopy personCopy = 1;
+    Person person = 2;
+  }
+}
